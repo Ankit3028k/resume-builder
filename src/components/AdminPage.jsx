@@ -66,7 +66,15 @@ const AdminPage = () => {
     setResumeData(prevData => {
       if (section && index !== undefined) {
         const updatedSection = [...prevData[section]];
-        updatedSection[index] = { ...updatedSection[index], [subKey]: value };
+        const updatedItem = { ...updatedSection[index] };
+  
+        if (subKey === "responsibilities") {
+          updatedItem[subKey] = value ? value.split(",") : [];  // Ensure it is an array
+        } else {
+          updatedItem[subKey] = value;
+        }
+  
+        updatedSection[index] = updatedItem;
         return { ...prevData, [section]: updatedSection };
       } else if (section) {
         return { ...prevData, [section]: { ...prevData[section], [subKey]: value } };
@@ -74,6 +82,7 @@ const AdminPage = () => {
       return { ...prevData, [name]: value };
     });
   };
+  
 
   const handleSave = (e) => {
     e.preventDefault();
