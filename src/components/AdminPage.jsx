@@ -1,56 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Resume from "./Resume";
 
 const AdminPage = () => {
-  const [resumeData, setResumeData] = useState({
-    name: "Ankit Gangrade",
-    email: "ankit@example.com",
-    mobile: "+91 1234567890",
-    linkedin: "https://www.linkedin.com/in/ankit-gangrade",
-    portfolio: "https://ankit-portfolio.com",
-    summary: "Motivated and skilled Frontend Developer with a passion for building responsive and user-friendly websites.",
-    technicalskill: {
-      frontend: "HTML5, CSS3, JavaScript, React",
-      backend: "Node.js, Express",
-      tools: "Git, Docker, Webpack"
-    },
-    WorkExperience: [
-      {
-        title: "Frontend Developer Intern",
-        company: "Integration IT Services",
-        location: "Bhopal, India",
-        dates: "June 2023 - August 2023",
-        responsibilities: [
-          "Developed responsive web pages using React.js",
-          "Collaborated with designers to implement UI/UX improvements",
-          "Worked with backend team to integrate RESTful APIs"
-        ]
-      }
-    ],
-    Projects: [
-      {
-        name: "ICJ24 Website Development",
-        type: "Freelance",
-        details: [
-          "Developed a full-stack web application with React and Node.js",
-          "Implemented authentication and authorization using JWT",
-          "Deployed the app on AWS"
-        ]
-      }
-    ],
-    Education: [{
-      degree: "Bachelor of Computer Science Engineering",
-      institution: "Prestige Institute of Management and Research",
-      graduationYear: "2024"
-    }],
-    Certifications: [{ Certification: "MERN Stack Development Training - CRISP, 2024" }],
-    ExtracurricularInvolvement: {
-      role: "Website Development Team Member",
-      organization: "Prestige Institute",
-      dates: "2019 - 2023"
-    },
-    Declaretion: "I hereby declare that the above information is true and correct to the best of my knowledge and belief."
+  // Initialize state with data from localStorage, if available
+  const [resumeData, setResumeData] = useState(() => {
+    const savedData = localStorage.getItem("resumeData");
+    return savedData ? JSON.parse(savedData) : {
+      name: "Ankit Gangrade",
+      email: "ankit@example.com",
+      mobile: "+91 1234567890",
+      linkedin: "https://www.linkedin.com/in/ankit-gangrade",
+      portfolio: "https://ankit-portfolio.com",
+      summary: "Motivated and skilled Frontend Developer with a passion for building responsive and user-friendly websites.",
+      technicalskill: {
+        frontend: "HTML5, CSS3, JavaScript, React",
+        backend: "Node.js, Express",
+        tools: "Git, Docker, Webpack"
+      },
+      WorkExperience: [
+        {
+          title: "Frontend Developer Intern",
+          company: "Integration IT Services",
+          location: "Bhopal, India",
+          dates: "June 2023 - August 2023",
+          responsibilities: [
+            "Developed responsive web pages using React.js",
+            "Collaborated with designers to implement UI/UX improvements",
+            "Worked with backend team to integrate RESTful APIs"
+          ]
+        }
+      ],
+      Projects: [
+        {
+          name: "ICJ24 Website Development",
+          type: "Freelance",
+          details: [
+            "Developed a full-stack web application with React and Node.js",
+            "Implemented authentication and authorization using JWT",
+            "Deployed the app on AWS"
+          ]
+        }
+      ],
+      Education: [{
+        degree: "Bachelor of Computer Science Engineering",
+        institution: "Prestige Institute of Management and Research",
+        graduationYear: "2024"
+      }],
+      Certifications: [{ Certification: "MERN Stack Development Training - CRISP, 2024" }],
+      ExtracurricularInvolvement: {
+        role: "Website Development Team Member",
+        organization: "Prestige Institute",
+        dates: "2019 - 2023"
+      },
+      Declaretion: "I hereby declare that the above information is true and correct to the best of my knowledge and belief."
+    };
   });
+
+  // Update the localStorage whenever the resumeData state changes
+  useEffect(() => {
+    localStorage.setItem("resumeData", JSON.stringify(resumeData));
+  }, [resumeData]);
 
   const handleChange = (e, section, index, subKey) => {
     const { name, value } = e.target;
@@ -164,7 +173,7 @@ const AdminPage = () => {
             </div>
           );
         })}
-        <button type="submit" className="save-button">Save Changes</button>
+        {/* <button type="submit" className="save-button">Save Changes</button> */}
       </form>
       <h2>Resume Preview</h2>
       <Resume resumeData={resumeData} />
