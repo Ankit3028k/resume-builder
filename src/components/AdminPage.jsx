@@ -68,7 +68,7 @@ const AdminPage = () => {
         const updatedSection = [...prevData[section]];
         const updatedItem = { ...updatedSection[index] };
   
-        if (subKey === "responsibilities") {
+        if (subKey === "responsibilities" || subKey==="details") {
           updatedItem[subKey] = value ? value.split(",") : [];  // Ensure it is an array
         } else {
           updatedItem[subKey] = value;
