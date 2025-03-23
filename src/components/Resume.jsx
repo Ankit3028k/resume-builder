@@ -59,6 +59,7 @@ const Resume = ({ resumeData }) => {
       doc.setFont("helvetica", "bold");
       y = addTextWithLineBreak(doc, `${exp.title} - ${exp.company} (${exp.dates})`, y);
       exp.responsibilities.forEach((resp) => {
+        doc.setFont("helvetica", "");
         y = addTextWithLineBreak(doc, `• ${resp}`, y, 15);
       });
       y += 6;
