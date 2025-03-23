@@ -42,30 +42,30 @@ const Resume = ({ resumeData }) => {
     // Technical Skills
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("Technical Skills", 10, y);
+    doc.text("Technical Skills", 10, y ,{ maxWidth: 190 });
     y += 6;
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text(`Frontend: ${resumeData.technicalskill?.frontend || "N/A"}`, 10, y);
+    doc.text(`Frontend: ${resumeData.technicalskill?.frontend || "N/A"}`, 10, y, { maxWidth: 190 });
     y += 5;
-    doc.text(`Backend: ${resumeData.technicalskill?.backend || "N/A"}`, 10, y);
+    doc.text(`Backend: ${resumeData.technicalskill?.backend || "N/A"}`, 10, y, { maxWidth: 190 });
     y += 5;
-    doc.text(`Tools: ${resumeData.technicalskill?.tools || "N/A"}`, 10, y);
+    doc.text(`Tools: ${resumeData.technicalskill?.tools || "N/A"}`, 10, y, { maxWidth: 190 });
     y += 15;
 
     // Work Experience
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("Work Experience", 10, y);
+    doc.text("Work Experience", 10, y, { maxWidth: 190 });
     y += 6;
     resumeData.WorkExperience?.forEach((exp) => {
       doc.setFontSize(10);
       doc.setFont("helvetica", "bold");
-      doc.text(`${exp.title} - ${exp.company} (${exp.dates})`, 10, y);
+      doc.text(`${exp.title} - ${exp.company} (${exp.dates})`, 10, y, { maxWidth: 190 });
       y += 5;
       doc.setFont("helvetica", "normal");
       exp.responsibilities.forEach((resp) => {
-        doc.text(`• ${resp}`, 15, y);
+        doc.text(`• ${resp}`, 15, y, { maxWidth: 190 });
         y += 5;
       });
       y += 5;
@@ -74,16 +74,16 @@ const Resume = ({ resumeData }) => {
     // Projects
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("Projects", 10, y);
+    doc.text("Projects", 10, y, { maxWidth: 190 });
     y += 6;
     resumeData.Projects?.forEach((proj) => {
       doc.setFontSize(10);
       doc.setFont("helvetica", "bold");
-      doc.text(`${proj.name} (${proj.type})`, 10, y);
+      doc.text(`${proj.name} (${proj.type})`, 10, y, { maxWidth: 190 });
       y += 5;
       doc.setFont("helvetica", "normal");
       proj.details.forEach((detail) => {
-        doc.text(`• ${detail}`, 15, y);
+        doc.text(`• ${detail}`, 15, y, { maxWidth: 190 });
         y += 5;
       });
       y += 5;
@@ -92,24 +92,24 @@ const Resume = ({ resumeData }) => {
     // Education
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("Education", 10, y);
+    doc.text("Education", 10, y, { maxWidth: 190 });
     y += 6;
     resumeData.Education?.forEach((edu) => {
       doc.setFontSize(10);
       doc.setFont("helvetica", "normal");
-      doc.text(`${edu.degree} - ${edu.institution} (${edu.graduationYear})`, 10, y);
+      doc.text(`${edu.degree} - ${edu.institution} (${edu.graduationYear})`, 10, y, { maxWidth: 190 });
       y += 10;
     });
 
     // Certifications
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("Certifications", 10, y);
+    doc.text("Certifications", 10, y, { maxWidth: 190 });
     y += 6;
     resumeData.Certifications?.forEach((cert) => {
       doc.setFontSize(10);
       doc.setFont("helvetica", "normal");
-      doc.text(`• ${cert.Certification}`, 10, y);
+      doc.text(`• ${cert.Certification}`, 10, y, { maxWidth: 190 });
       y += 5;
     });
     y += 10;
@@ -117,17 +117,17 @@ const Resume = ({ resumeData }) => {
     // Extracurricular Involvement
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("Extracurricular Involvement", 10, y);
+    doc.text("Extracurricular Involvement", 10, y, { maxWidth: 190 });
     y += 6;
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.text(`${resumeData.ExtracurricularInvolvement?.role || "N/A"} - ${resumeData.ExtracurricularInvolvement?.organization || "N/A"} (${resumeData.ExtracurricularInvolvement?.dates || "N/A"})`, 10, y);
+    doc.text(`${resumeData.ExtracurricularInvolvement?.role || "N/A"} - ${resumeData.ExtracurricularInvolvement?.organization || "N/A"} (${resumeData.ExtracurricularInvolvement?.dates || "N/A"})`, 10, y, { maxWidth: 190 });
     y += 15;
 
     // Declaration
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.text("Declaration", 10, y);
+    doc.text("Declaration", 10, y, { maxWidth: 190 });
     y += 6;
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
