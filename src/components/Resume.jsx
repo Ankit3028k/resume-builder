@@ -9,9 +9,28 @@ const Resume = ({ resumeData }) => {
   const downloadPDF = () => {
     const doc = new jsPDF();
     doc.setFont("helvetica", "normal");
-
+  
     let y = 10; // Start y position for the first content
-
+    const pageHeight = doc.internal.pageSize.height;
+  
+    // Helper function to add text and handle line breaks with page handling
+    const addTextWithLineBreak = (doc, text, yPosition, indent = 10) => {
+      const maxWidth = 190;
+      const lineHeight = 5;
+  
+      const lines = doc.splitTextToSize(text, maxWidth);
+      lines.forEach((line, index) => {
+        if (yPosition + lineHeight > pageHeight) {
+          doc.addPage(); // Add a new page if current page is full
+          yPosition = 10; // Reset y position for the new page
+        }
+        doc.text(line, indent, yPosition);
+        yPosition += lineHeight;
+      });
+  
+      return yPosition;
+    };
+  
     // Header
     doc.setFontSize(20);
     doc.setFont("helvetica", "bold");
@@ -23,12 +42,12 @@ const Resume = ({ resumeData }) => {
     y += 5;
     doc.text(`LinkedIn: ${resumeData.linkedin || "N/A"} | Portfolio: ${resumeData.portfolio || "N/A"}`, 10, y);
     y += 10;
-
+  
     // Section Divider
     doc.setLineWidth(0.5);
     doc.line(10, y, 200, y);
     y += 10;
-
+  
     // Summary
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -38,6 +57,7 @@ const Resume = ({ resumeData }) => {
     doc.setFont("helvetica", "normal");
     y = addTextWithLineBreak(doc, resumeData.summary || "N/A", y);
     y += 6;
+  
     // Technical Skills
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -49,6 +69,7 @@ const Resume = ({ resumeData }) => {
     y = addTextWithLineBreak(doc, `Backend: ${resumeData.technicalskill?.backend || "N/A"}`, y);
     y = addTextWithLineBreak(doc, `Tools: ${resumeData.technicalskill?.tools || "N/A"}`, y);
     y += 6;
+  
     // Work Experience
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -64,7 +85,7 @@ const Resume = ({ resumeData }) => {
       });
       y += 6;
     });
-
+  
     // Projects
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -80,7 +101,7 @@ const Resume = ({ resumeData }) => {
       });
       y += 6;
     });
-
+  
     // Education
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -92,6 +113,7 @@ const Resume = ({ resumeData }) => {
       y = addTextWithLineBreak(doc, `${edu.degree} - ${edu.institution} (${edu.graduationYear})`, y);
     });
     y += 6;
+  
     // Certifications
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -103,7 +125,7 @@ const Resume = ({ resumeData }) => {
       y = addTextWithLineBreak(doc, `• ${cert.Certification}`, y);
     });
     y += 6;
-
+  
     // Extracurricular Involvement
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -113,6 +135,7 @@ const Resume = ({ resumeData }) => {
     doc.setFont("helvetica", "normal");
     y = addTextWithLineBreak(doc, `${resumeData.ExtracurricularInvolvement?.role || "N/A"} at ${resumeData.ExtracurricularInvolvement?.organization || "N/A"} (${resumeData.ExtracurricularInvolvement?.dates || "N/A"})`, y);
     y += 6;
+  
     // Declaration
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
@@ -122,9 +145,11 @@ const Resume = ({ resumeData }) => {
     doc.setFont("helvetica", "normal");
     y = addTextWithLineBreak(doc, resumeData.Declaretion || "N/A", y);
     y += 6;
+  
     // Save the PDF
     doc.save(`Resume-${resumeData.name || "Unknown"}.pdf`);
   };
+  
 
   // Helper function to add text and handle line breaks
   const addTextWithLineBreak = (doc, text, yPosition, indent = 10) => {
