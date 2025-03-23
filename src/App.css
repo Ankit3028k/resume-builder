@@ -1,4 +1,13 @@
 /* General Styles */
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #0073e6;
+  --text-color: #333;
+  --background-color: #f4f7f6;
+  --white: #ffffff;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,21 +15,22 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7f6;
-  color: #333;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
   line-height: 1.6;
 }
 
 h1, h2, h3, h4 {
-  color: #333;
+  color: var(--text-color);
+  margin-bottom: 1rem;
 }
 
 /* Admin Page Styles */
 .admin-page {
   max-width: 1200px;
   margin: 20px auto;
-  background-color: #ffffff;
+  background-color: var(--white);
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -30,7 +40,7 @@ h1, h2, h3, h4 {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 20px;
-  color: #4CAF50;
+  color: var(--primary-color);
 }
 
 .resume-form {
@@ -41,7 +51,7 @@ h1, h2, h3, h4 {
 
 .resume-form label {
   font-weight: bold;
-  color: #4CAF50;
+  color: var(--primary-color);
   font-size: 1rem;
   margin-bottom: 5px;
 }
@@ -58,15 +68,15 @@ h1, h2, h3, h4 {
 
 .resume-form input:focus,
 .resume-form textarea:focus {
-  border-color: #4CAF50;
+  border-color: var(--primary-color);
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
 .save-button {
   padding: 12px 25px;
   font-size: 1.1rem;
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--white);
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -82,7 +92,7 @@ h1, h2, h3, h4 {
 .resume-container {
   max-width: 900px;
   margin: 40px auto;
-  background-color: #fff;
+  background-color: var(--white);
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -90,16 +100,16 @@ h1, h2, h3, h4 {
 
 .resume-container h1 {
   font-size: 2.2rem;
-  color: #4CAF50;
+  color: var(--primary-color);
   margin-bottom: 10px;
 }
 
 .resume-container h2 {
   font-size: 1.5rem;
-  color: #4CAF50;
+  color: var(--primary-color);
   margin-top: 30px;
   margin-bottom: 15px;
-  border-bottom: 2px solid #4CAF50;
+  border-bottom: 2px solid var(--primary-color);
   padding-bottom: 5px;
 }
 
@@ -109,7 +119,7 @@ h1, h2, h3, h4 {
 }
 
 .resume-container a {
-  color: #0073e6;
+  color: var(--secondary-color);
   text-decoration: none;
 }
 
@@ -118,8 +128,8 @@ h1, h2, h3, h4 {
 }
 
 .download-button {
-  background-color: #0073e6;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--white);
   padding: 12px 25px;
   border: none;
   cursor: pointer;

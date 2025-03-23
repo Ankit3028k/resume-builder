@@ -68,7 +68,7 @@ const AdminPage = () => {
         const updatedSection = [...prevData[section]];
         const updatedItem = { ...updatedSection[index] };
   
-        if (subKey === "responsibilities" || subKey==="details") {
+        if (subKey === "responsibilities" || subKey === "details") {
           updatedItem[subKey] = value ? value.split(".,") : [];  // Ensure it is an array
         } else {
           updatedItem[subKey] = value;
@@ -82,7 +82,6 @@ const AdminPage = () => {
       return { ...prevData, [name]: value };
     });
   };
-  
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -182,7 +181,6 @@ const AdminPage = () => {
             </div>
           );
         })}
-        {/* <button type="submit" className="save-button">Save Changes</button> */}
       </form>
       <h2>Resume Preview</h2>
       <Resume resumeData={resumeData} />
