@@ -10,19 +10,18 @@ const Resume = ({ resumeData }) => {
     const doc = new jsPDF();
     doc.setFont("helvetica", "normal");
   
-    let y = 10; // Start y position for the first content
+    let y = 10;
     const pageHeight = doc.internal.pageSize.height;
   
-    // Helper function to add text and handle line breaks with page handling
     const addTextWithLineBreak = (doc, text, yPosition, indent = 10) => {
       const maxWidth = 190;
       const lineHeight = 5;
   
       const lines = doc.splitTextToSize(text, maxWidth);
-      lines.forEach((line, index) => {
+      lines.forEach((line) => {
         if (yPosition + lineHeight > pageHeight) {
-          doc.addPage(); // Add a new page if current page is full
-          yPosition = 10; // Reset y position for the new page
+          doc.addPage();
+          yPosition = 10;
         }
         doc.text(line, indent, yPosition);
         yPosition += lineHeight;
@@ -30,7 +29,7 @@ const Resume = ({ resumeData }) => {
   
       return yPosition;
     };
-  
+
     // Header
     doc.setFontSize(20);
     doc.setFont("helvetica", "bold");
@@ -126,44 +125,46 @@ const Resume = ({ resumeData }) => {
     });
     y += 6;
   
-    // Extracurricular Involvement
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
-    doc.text("Extracurricular Involvement", 10, y);
-    y += 8;
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    y = addTextWithLineBreak(doc, `${resumeData.ExtracurricularInvolvement?.role || "N/A"} at ${resumeData.ExtracurricularInvolvement?.organization || "N/A"} (${resumeData.ExtracurricularInvolvement?.dates || "N/A"})`, y);
-    y += 6;
-  
-    // Declaration
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
-    doc.text("Declaration", 10, y);
-    y += 8;
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    y = addTextWithLineBreak(doc, resumeData.Declaretion || "N/A", y);
-    y += 6;
-  
-    // Save the PDF
-    doc.save(`Resume-${resumeData.name || "Unknown"}.pdf`);
-  };
-  
+    
+   // Extracurricular Involvement
+doc.setFontSize(14);
+doc.setFont("helvetica", "bold");
+doc.text("Extracurricular Involvement", 10, y);
+y += 8;
 
-  // Helper function to add text and handle line breaks
-  const addTextWithLineBreak = (doc, text, yPosition, indent = 10) => {
-    const maxWidth = 190;
-    const lineHeight = 5;
+resumeData.ExtracurricularInvolvement?.forEach((Extra) => {
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "bold");
+  y = addTextWithLineBreak(doc, `${Extra.role} (${Extra.organization}) (${Extra.dates})`, y);
 
-    const lines = doc.splitTextToSize(text, maxWidth);
-    lines.forEach((line, index) => {
-      doc.text(line, indent, yPosition);
-      yPosition += lineHeight;
+  // Check if contribution is an array before using forEach
+  if (Array.isArray(Extra.contribution)) {
+    Extra.contribution.forEach((contribution) => {
+      doc.setFont("helvetica", "");
+      y = addTextWithLineBreak(doc, ` ${contribution}`, y, 10);
     });
+  } else {
+    // If it's not an array, just add it as a single line
+    doc.setFont("helvetica", "");
+    y = addTextWithLineBreak(doc, ` ${Extra.contribution || "N/A"}`, y, 10);
+  }
 
-    return yPosition;
-  };
+  y += 6;
+});
+
+  
+   // Declaration
+   doc.setFontSize(14);
+   doc.setFont("helvetica", "bold");
+   doc.text("Declaration", 10, y);
+   y += 8;
+   doc.setFontSize(10);
+   doc.setFont("helvetica", "normal");
+   y = addTextWithLineBreak(doc, resumeData.Declaretion || "N/A", y);
+   y += 6;
+   // Save the PDF
+   doc.save(`Resume-${resumeData.name || "Unknown"}.pdf`);
+ };
 
   return (
     <div className="resume-container">
@@ -224,10 +225,24 @@ const Resume = ({ resumeData }) => {
         </ul>
 
         <h3>Extracurricular Involvement</h3>
-        <p>{resumeData.ExtracurricularInvolvement?.role} at {resumeData.ExtracurricularInvolvement?.organization} ({resumeData.ExtracurricularInvolvement?.dates})</p>
+        {resumeData.ExtracurricularInvolvement?.map((Extra, index) => (
+  <div key={index}>
+    <h4>{Extra.role} ({Extra.organization}) ({Extra.dates})</h4>
+   
+      {/* Check if contribution is an array before mapping */}
+      {Array.isArray(Extra.contribution) ? (
+        Extra.contribution.map((contribution, i) => (
+          <p key={i}>{contribution}</p>
+        ))
+      ) : (
+        <p>{Extra.contribution}</p> // If it's not an array, display it directly as a string
+      )}
+    
+  </div>
+))}
 
-        <h3>Declaration</h3>
-        <p>{resumeData.Declaretion}</p>
+<h3>Declaration</h3>
+<p>{resumeData.Declaretion}</p>
       </div>
     </div>
   );

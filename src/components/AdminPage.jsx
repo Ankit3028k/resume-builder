@@ -9,8 +9,8 @@ const AdminPage = () => {
       name: "Ankit Gangrade",
       email: "ankit@example.com",
       mobile: "+91 1234567890",
-      linkedin: "https://www.linkedin.com/in/ankit-gangrade",
-      portfolio: "https://ankit-portfolio.com",
+      linkedin: "https://www.linkedin.com/in/ankit-gangrade-90b89b259/",
+      portfolio: "https://ankit3028k.vercel.app/",
       summary: "Motivated and skilled Frontend Developer with a passion for building responsive and user-friendly websites.",
       technicalskill: {
         frontend: "HTML5, CSS3, JavaScript, React",
@@ -47,11 +47,12 @@ const AdminPage = () => {
         graduationYear: "2024"
       }],
       Certifications: [{ Certification: "MERN Stack Development Training - CRISP, 2024" }],
-      ExtracurricularInvolvement: {
+      ExtracurricularInvolvement: [{
         role: "Website Development Team Member",
         organization: "Prestige Institute",
-        dates: "2019 - 2023"
-      },
+        dates: "2019 - 2023",
+        contribution:"",
+      }],
       Declaretion: "I hereby declare that the above information is true and correct to the best of my knowledge and belief."
     };
   });
@@ -98,6 +99,8 @@ const AdminPage = () => {
       newItem = { degree: "", institution: "", graduationYear: "" };
     } else if (section === "Certifications") {
       newItem = { Certification: "" };
+    } else if (section === "ExtracurricularInvolvement") {
+      newItem = { role: "" , organization:"", dates:"", contribution:""};
     }
     setResumeData(prevData => ({
       ...prevData,
@@ -120,7 +123,7 @@ const AdminPage = () => {
           if (typeof value === "object" && !Array.isArray(value) && key !== "technicalskill" && key !== "ExtracurricularInvolvement") {
             return null; // Handled separately
           }
-          if (key === "technicalskill" || key === "ExtracurricularInvolvement") {
+          if (key === "technicalskill" ) {
             return (
               <div key={key}>
                 <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
