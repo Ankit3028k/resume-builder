@@ -145,7 +145,7 @@ const AdminPage = () => {
           if (Array.isArray(value)) {
             return (
               <div key={key}>
-                <h3>{key.charAt(0).toUpperCase() + key.slice(0, -1)}</h3>
+                <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
                 {value.map((item, index) => (
                   <div key={index}>
                     {Object.entries(item).map(([subKey, subValue]) => (
