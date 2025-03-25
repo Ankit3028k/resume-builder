@@ -98,9 +98,9 @@ const Resume = ({ resumeData }) => {
         doc.setFont("helvetica", "");
         y = addTextWithLineBreak(doc, `• ${detail}`, y, 15);
       });
-      y += 6;
+      
     });
-  
+    y += 6;
     // Education
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
