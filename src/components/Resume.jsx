@@ -100,7 +100,7 @@ const Resume = ({ resumeData }) => {
       });
       
     });
-  y += 8;
+  y += 6;
     // Education
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
